@@ -1,21 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
+import Home from './src/views/Home';
+import styles from './src/views/Home/styles';
+
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Edilson Máquina de Sexo - Chatuba do Mirante Bonde do MMA</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <Home/>
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
