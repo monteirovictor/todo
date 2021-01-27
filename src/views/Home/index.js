@@ -9,7 +9,7 @@ import Header from '../../components/Header';
 export default function Home(){
     return (
         <View style={styles.container}>
-            <Header/>
+            <Header showNotification={true}  showBack={false}/>
         </View>
     )
     

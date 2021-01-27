@@ -22,6 +22,11 @@ const styles= StyleSheet.create({
         width:30,
         height:35
     },
+    notificationText:{
+        fontWeight:'bold',
+        color:'#ee6b26'
+    },
+
     circle:{
         width:25,
         height:25,
@@ -31,7 +36,8 @@ const styles= StyleSheet.create({
         alignItems:'center',
         position:'absolute',
         left:13,
-        bottom:13
+        bottom:13,
+
 
     },
     leftIcon:{
