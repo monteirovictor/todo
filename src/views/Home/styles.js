@@ -24,6 +24,24 @@ const styles = StyleSheet.create({
         fontSize:18,
         color:'#20295f',
         opacity:0.5
+    },
+    content:{
+        width:'100%',
+        marginTop:30
+    },
+    title:{
+        width:'100%',
+        borderBottomWidth:1,
+        borderColor:'#20295f',
+        alignItems:'center'
+    },
+    titleText:{
+        borderColor:'#20295f',
+        fontSize:18,
+        position:'relative',
+        top:11,
+        backgroundColor:'#fff',
+        paddingHorizontal:10
     }
 });
 
