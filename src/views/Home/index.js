@@ -19,7 +19,7 @@ export default function Home(){
 
     async function loadTask(){
         setLoad(true);
-        await api.get('/task/filter/all/11:11:11:11:11:11')
+        await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
         .then(response=>{
             setTasks(response.data)
             setLoad(false);
@@ -28,7 +28,7 @@ export default function Home(){
     }
     useEffect(()=>{
         loadTask();
-    },[])
+    },[filter])
 
     return (
         <View style={styles.container}>
@@ -87,7 +87,7 @@ export default function Home(){
             <ActivityIndicator color={'#ee6b26'} size={50}></ActivityIndicator>
             :
                     tasks.map(t =>(
-                        <TaskCard done={false} title={t.title} when={t.when}/>
+                        <TaskCard done={false} title={t.title} when={t.when} type={t.type}/>
                     ))
                  }
             </ScrollView>
