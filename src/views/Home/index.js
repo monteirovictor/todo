@@ -9,6 +9,7 @@ import Footer from '../../components/Footer';
 import TaskCard from '../../components/TaskCard';
 //conexao api
 import api from '../../services/api';
+import { func } from 'joi';
 
 
 export default function Home(){
@@ -16,23 +17,37 @@ export default function Home(){
     const [filter,setFilter]=useState('today'); 
     const [tasks,setTasks]=useState([]);
     const [load,setLoad]=useState(false);
-
+    const [lateCount,setLateCount]=useState();
+    
     async function loadTask(){
         setLoad(true);
         await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
         .then(response=>{
             setTasks(response.data)
-            setLoad(false);
-           
+            setLoad(false);   
         });  
     }
+
+    async function lateVerify(){  
+        await api.get(`/task/filter/late/11:11:11:11:11:11`)
+        .then(response=>{
+            setLateCount(response.data.length)
+        });  
+    }
+
+     function notification(){
+        setFilter('late');
+    }
+
+
     useEffect(()=>{
         loadTask();
+        lateVerify();
     },[filter])
 
     return (
         <View style={styles.container}>
-            <Header showNotification={true}  showBack={false}/>
+            <Header showNotification={true}  showBack={false} pressNotification={Notification} late={lateCount}/>
             <View style={styles.filter}>
                 <TouchableOpacity onPress={()=>setFilter('all')}>
                     <Text style={
