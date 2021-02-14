@@ -12,7 +12,10 @@ const styles = StyleSheet.create({
  iconTextInput:{
      position:'absolute',
      left:'95%',
-     top:50
+     top:15,
+     width:25,
+     height:25,
+     resizeMode:'contain'
  }
 });
 
