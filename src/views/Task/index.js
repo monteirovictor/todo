@@ -17,7 +17,7 @@ import styles from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import typeIcon from '../../utils/typeIcons';
-
+import DateTimeInput from '../../components/DateTimeInput/index.android';
 
 export default function Task(){
 
@@ -42,7 +42,7 @@ export default function Task(){
 
               <Text style={styles.label}>Detalhes</Text>
               <TextInput style={styles.inputarea} maxLength={200}  multiline={true} placeholder="Detalhes da Atividade"/>
-
+                <DateTimeInput type={'date'}/>
               <View style={styles.inLine}>
                   <View style={styles.inputInline}>
                     <Switch onValueChange={()=>setDone(!done)} value={done} thumbColor={done ?'#00761b' : '#ee6b26'}/>
