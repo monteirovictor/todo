@@ -19,7 +19,7 @@ export default function Home(){
     const [load,setLoad]=useState(false);
     const [lateCount,setLateCount]=useState();
     
-    async function loadTask(){
+    async function loadTask({navigation}){
         setLoad(true);
         await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
         .then(response=>{
@@ -39,6 +39,9 @@ export default function Home(){
         setFilter('late');
     }
 
+    function New() {
+        
+    }
 
     useEffect(()=>{
         loadTask();
