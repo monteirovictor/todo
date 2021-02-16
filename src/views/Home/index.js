@@ -12,14 +12,14 @@ import api from '../../services/api';
 
 
 
-export default function Home(){
+export default function Home({navigation}){
     
     const [filter,setFilter]=useState('today'); 
     const [tasks,setTasks]=useState([]);
     const [load,setLoad]=useState(false);
     const [lateCount,setLateCount]=useState();
     
-    async function loadTask({navigation}){
+    async function loadTask(){
         setLoad(true);
         await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
         .then(response=>{
@@ -40,7 +40,7 @@ export default function Home(){
     }
 
     function New() {
-        
+        navigation.navigate('Task');
     }
 
     useEffect(()=>{
@@ -110,7 +110,7 @@ export default function Home(){
                  }
             </ScrollView>
             
-            <Footer icon={'add'} />
+            <Footer icon={'add'} onPress={New}/>
         </View>
     )
     
