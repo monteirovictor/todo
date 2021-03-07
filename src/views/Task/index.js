@@ -12,7 +12,7 @@ import {
 
 }from 'react-native';
 
-import *  as Network from 'expo-network';
+import * as Network from 'expo-network';
 import styles from './styles';
 // COMPONENTES 
 
@@ -24,7 +24,7 @@ import Footer from '../../components/Footer';
 import typeIcon from '../../utils/typeIcons';
 import DateTimeInput from '../../components/DateTimeInput';
 
-export default function Task({navigation}){
+export default function Task({navigation,idTask}){
 
     const [done,setDone]=useState(false);
     const [type,setType]=useState();
@@ -32,7 +32,7 @@ export default function Task({navigation}){
     const [description,setDescription]=useState();
     const [date,setDate]=useState();
     const [hour,setHour]=useState();
-    const [macaddress,setMacaddress]=useState('11:11:11:11:11:11');
+    const [macaddress,setMacaddress]=useState();
 
     async function SaveTask() {
         Alert.alert(`${date}T${hour}.000`);
@@ -57,6 +57,17 @@ export default function Task({navigation}){
                 navigation.navigate('Home');
             });
     }
+
+    async function getMacAddress(){
+         await Network.getMacAddressAsync().then(mac=>{
+            setMacaddress(mac);
+        });
+    }
+
+    useEffect(()=>{
+        
+        getMacAddress();
+    });
   return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
           <Header showBack={true} navigation={navigation}/>
@@ -80,6 +91,8 @@ export default function Task({navigation}){
                 onChangeText={(text)=>setDescription(text)} value={description}/>
                 <DateTimeInput type={'date'} save={setDate}/>
                 <DateTimeInput type={'hour'} save={setHour}/>
+                {
+                    idTask &&
               <View style={styles.inLine}>
                   <View style={styles.inputInline}>
                     <Switch onValueChange={()=>setDone(!done)} value={done} thumbColor={done ?'#00761b' : '#ee6b26'}/>
@@ -89,7 +102,7 @@ export default function Task({navigation}){
                       <Text style={styles.removeLabel}>EXCLUIR</Text>
                   </TouchableOpacity>
               </View>
-
+            }
           </ScrollView>
           <Footer icon={'save'} onPress={SaveTask}></Footer>
       </KeyboardAvoidingView>

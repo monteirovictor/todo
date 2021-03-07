@@ -7,8 +7,10 @@ import styles from './styles';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import TaskCard from '../../components/TaskCard';
+import * as Network from 'expo-network';
 //conexao api
 import api from '../../services/api';
+
 
 
 
@@ -18,10 +20,17 @@ export default function Home({navigation}){
     const [tasks,setTasks]=useState([]);
     const [load,setLoad]=useState(false);
     const [lateCount,setLateCount]=useState();
-    
+    const [macaddress,setMacaddress]=useState();
+
+    async function getMacAddress(){
+        await Network.getMacAddressAsync().then(mac=>{
+           setMacaddress(mac);
+       });
+   }
+
     async function loadTask(){
         setLoad(true);
-        await api.get(`/task/filter/${filter}/11:11:11:11:11:11`)
+        await api.get(`/task/filter/${filter}/${macaddress}`)
         .then(response=>{
             setTasks(response.data)
             setLoad(false);   
@@ -43,10 +52,16 @@ export default function Home({navigation}){
         navigation.navigate('Task');
     }
 
+    function Show(id){
+        navigation.navigate('Task',{idTask:id});
+    }
+
     useEffect(()=>{
-        loadTask();
+        getMacAddress().then(()=>{
+            loadTask();
+        });
         lateVerify();
-    },[filter])
+    },[filter,macaddress])
 
     return (
         <View style={styles.container}>
@@ -105,7 +120,8 @@ export default function Home({navigation}){
             <ActivityIndicator color={'#ee6b26'} size={50}></ActivityIndicator>
             :
                     tasks.map(t =>(
-                        <TaskCard done={false} title={t.title} when={t.when} type={t.type}/>
+                        <TaskCard done={false} title={t.title} when={t.when} type={t.type} 
+                        onPress={()=>Show(t._id)}/>
                     ))
                  }
             </ScrollView>
