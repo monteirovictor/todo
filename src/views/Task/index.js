@@ -12,6 +12,7 @@ import {
 
 }from 'react-native';
 
+import *  as Network from 'expo-network';
 import styles from './styles';
 // COMPONENTES 
 
