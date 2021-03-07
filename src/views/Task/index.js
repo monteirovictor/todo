@@ -25,7 +25,7 @@ import typeIcon from '../../utils/typeIcons';
 import DateTimeInput from '../../components/DateTimeInput';
 
 export default function Task({navigation,idTask}){
-
+    const [id,setId]=useState();
     const [done,setDone]=useState(false);
     const [type,setType]=useState();
     const [title,setTitle]=useState();
@@ -65,7 +65,8 @@ export default function Task({navigation,idTask}){
     }
 
     useEffect(()=>{
-        
+        if(navigation.state.params)
+        setId(navigation.state.params.idTask);
         getMacAddress();
     });
   return (
@@ -92,7 +93,7 @@ export default function Task({navigation,idTask}){
                 <DateTimeInput type={'date'} save={setDate}/>
                 <DateTimeInput type={'hour'} save={setHour}/>
                 {
-                    idTask &&
+                    id &&
               <View style={styles.inLine}>
                   <View style={styles.inputInline}>
                     <Switch onValueChange={()=>setDone(!done)} value={done} thumbColor={done ?'#00761b' : '#ee6b26'}/>
